@@ -1,0 +1,86 @@
+## Disable the oscillation parameters:  Use with
+#
+# --override-files ${CONFIG_DIR}/overrides/disableOscillationParameters.yaml
+#
+# Disable the application of the oscillation parameters.  This is not the
+# same as "no oscillations" since the "non-swap" samples are still used.
+# This is for debugging application of the "cross section" and "flux"
+# against another fitter without involving any of the oscillation weight
+# calculation.
+
+fitterEngineConfig:
+  likelihoodInterfaceConfig:
+
+    enableStatThrowInToys: false
+    enableEventMcThrow: false
+    gaussStatThrowInToys: false
+
+    dataSetList: 
+
+      - name: "FD"
+
+        selectedToyEntry: "pValueToys" # instead of Asimov
+
+        "data":
+        - name: "pValueToys"
+
+          # copy pars from MC
+          fromMc: true
+          useReweightEngine: true
+          tree: "event_tree"
+
+          # toy files
+          filePathList:
+            # Initinal flavour: nue Selected flavour: nue
+            - "${OA_INPUT_FOLDER}/atm_hdnue_x_nue_nueselec_gudi.root"
+            - "${OA_INPUT_FOLDER}/atm_hdnue_x_nutau_nueselec_gudi.root"
+            - "${OA_INPUT_FOLDER}/atm_hdnue_x_numu_nueselec_gudi.root"
+            # Initinal flavour: nuebar Selected flavour: nue
+            - "${OA_INPUT_FOLDER}/atm_hdnuebar_x_nuebar_nueselec_gudi.root"
+            - "${OA_INPUT_FOLDER}/atm_hdnuebar_x_nutaubar_nueselec_gudi.root"
+            - "${OA_INPUT_FOLDER}/atm_hdnuebar_x_numubar_nueselec_gudi.root"
+            # Initinal flavour: numu Selected flavour: nue
+            - "${OA_INPUT_FOLDER}/atm_hdnumu_x_numu_nueselec_gudi.root"
+            - "${OA_INPUT_FOLDER}/atm_hdnumu_x_nue_nueselec_gudi.root"
+            - "${OA_INPUT_FOLDER}/atm_hdnumu_x_nutau_nueselec_gudi.root"
+            # Initinal flavour: numubar Selected flavour: nue
+            - "${OA_INPUT_FOLDER}/atm_hdnumubar_x_numubar_nueselec_gudi.root"
+            - "${OA_INPUT_FOLDER}/atm_hdnumubar_x_nuebar_nueselec_gudi.root"
+            - "${OA_INPUT_FOLDER}/atm_hdnumubar_x_nutaubar_nueselec_gudi.root"
+            # Initinal flavour: nue Selected flavour: numu
+            - "${OA_INPUT_FOLDER}/atm_hdnue_x_nue_numuselec_gudi.root"
+            - "${OA_INPUT_FOLDER}/atm_hdnue_x_nutau_numuselec_gudi.root"
+            - "${OA_INPUT_FOLDER}/atm_hdnue_x_numu_numuselec_gudi.root"
+            # Initinal flavour: nuebar Selected flavour: numu
+            - "${OA_INPUT_FOLDER}/atm_hdnuebar_x_nuebar_numuselec_gudi.root"
+            - "${OA_INPUT_FOLDER}/atm_hdnuebar_x_nutaubar_numuselec_gudi.root"
+            - "${OA_INPUT_FOLDER}/atm_hdnuebar_x_numubar_numuselec_gudi.root"   
+            # Initinal flavour: numu Selected flavour: numu
+            - "${OA_INPUT_FOLDER}/atm_hdnumu_x_numu_numuselec_gudi.root"
+            - "${OA_INPUT_FOLDER}/atm_hdnumu_x_nue_numuselec_gudi.root"
+            - "${OA_INPUT_FOLDER}/atm_hdnumu_x_nutau_numuselec_gudi.root"
+            # Initinal flavour: numubar Selected flavour: numu
+            - "${OA_INPUT_FOLDER}/atm_hdnumubar_x_numubar_numuselec_gudi.root"
+            - "${OA_INPUT_FOLDER}/atm_hdnumubar_x_nuebar_numuselec_gudi.root"
+            - "${OA_INPUT_FOLDER}/atm_hdnumubar_x_nutaubar_numuselec_gudi.root"
+            # Initinal flavour: nue Selected flavour: nc
+            #- "${OA_INPUT_FOLDER}/atm_hdnue_x_nue_ncselec_gudi.root"
+            #- "${OA_INPUT_FOLDER}/atm_hdnue_x_nutau_ncselec_gudi.root"
+            #- "${OA_INPUT_FOLDER}/atm_hdnue_x_numu_ncselec_gudi.root"
+            # Initinal flavour: nuebar Selected flavour: nc
+            #- "${OA_INPUT_FOLDER}/atm_hdnuebar_x_nuebar_ncselec_gudi.root"
+            #- "${OA_INPUT_FOLDER}/atm_hdnuebar_x_nutaubar_ncselec_gudi.root"
+            #- "${OA_INPUT_FOLDER}/atm_hdnuebar_x_numubar_ncselec_gudi.root"
+            # Initinal flavour: numu Selected flavour: nc
+            #- "${OA_INPUT_FOLDER}/atm_hdnumu_x_numu_ncselec_gudi.root"
+            #- "${OA_INPUT_FOLDER}/atm_hdnumu_x_nue_ncselec_gudi.root"
+            #- "${OA_INPUT_FOLDER}/atm_hdnumu_x_nutau_ncselec_gudi.root"
+            # Initinal flavour: numubar Selected flavour: nc
+            #- "${OA_INPUT_FOLDER}/atm_hdnumubar_x_numubar_ncselec_gudi.root"
+            #- "${OA_INPUT_FOLDER}/atm_hdnumubar_x_nuebar_ncselec_gudi.root"
+            #- "${OA_INPUT_FOLDER}/atm_hdnumubar_x_nutaubar_ncselec_gudi.root"
+                            
+          # base weight
+          nominalWeightFormula:
+            - "mcGenWeight"
+

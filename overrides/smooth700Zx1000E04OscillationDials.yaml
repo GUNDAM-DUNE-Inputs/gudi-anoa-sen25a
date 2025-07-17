@@ -1,0 +1,192 @@
+## Apply oscillation parameter values:  Use with
+#
+# --override-files ${CONFIG_DIR}/overrides/smooth<settings>OscillationParameters.yaml
+#
+# Sets the oscillation weight calculation grid and smoothing.  This is for
+# a fixed production height.  The binning and smoothing is in the file name
+#
+# smooth<zBins>Zx<eBins>E<smoothing>OscillationDials.yaml
+#
+#    The energy smoothing is the smoothing times 100, so E04 means
+#    "ENERGY_RESOLUTION 0.04"
+#
+# To use it, you will need to generate the grid histogram using
+#
+# ```
+# ${CONFIG_DIR}/macros/OscillationGrid/makeEnergyZenith.py -e 1000 -z 700
+# ```
+#
+# and then copy the output file into
+# ${CONFIG_DIR}/input/parameters/oscProb/grid_E1000_cZ700.root
+#
+
+fitterEngineConfig:
+  likelihoodInterfaceConfig:
+    propagatorConfig:
+      parametersManagerConfig:
+        parameterSetList:
+          - name: "Oscillation Parameters"
+            dialSetDefinitions:
+              
+              - name: OscWeightElectronElectron
+                tableConfig:
+                  initArguments:
+                    - "FLUX_FLAVOR electron"          # electron neutrino flux
+                    - "INTERACTION_FLAVOR electron"   # electron neutrino
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "PRODUCTION_HEIGHT 20"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_fixed.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/grid_E1000_cZ700.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                    
+              - name: OscWeightElectronMuon
+                tableConfig:
+                  initArguments:
+                    - "FLUX_FLAVOR electron"          # electron neutrino flux
+                    - "INTERACTION_FLAVOR muon"   # electron neutrino
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "PRODUCTION_HEIGHT 20"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_fixed.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/grid_E1000_cZ700.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                    
+              - name: OscWeightElectronTau
+                tableConfig:
+                  initArguments:
+                    - "FLUX_FLAVOR electron"          # electron neutrino flux
+                    - "INTERACTION_FLAVOR tau"   # electron neutrino
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "PRODUCTION_HEIGHT 20"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_fixed.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/grid_E1000_cZ700.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                    
+              - name: OscWeightMuonElectron
+                tableConfig:
+                  initArguments:
+                    - "FLUX_FLAVOR muon"
+                    - "INTERACTION_FLAVOR electron"
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "PRODUCTION_HEIGHT 20"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_fixed.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/grid_E1000_cZ700.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                    
+              - name: OscWeightMuonMuon
+                tableConfig:
+                  initArguments:
+                    - "FLUX_FLAVOR muon"
+                    - "INTERACTION_FLAVOR muon"
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "PRODUCTION_HEIGHT 20"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_fixed.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/grid_E1000_cZ700.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                    
+              - name: OscWeightMuonTau
+                tableConfig:
+                  initArguments:
+                    - "FLUX_FLAVOR muon"
+                    - "INTERACTION_FLAVOR tau"
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "PRODUCTION_HEIGHT 20"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_fixed.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/grid_E1000_cZ700.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                    
+              - name: OscWeightEBarEBar
+                tableConfig:
+                  initArguments:
+                    - "FLUX_FLAVOR anti-electron"
+                    - "INTERACTION_FLAVOR anti-electron"
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "PRODUCTION_HEIGHT 20"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_fixed.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/grid_E1000_cZ700.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                    
+              - name: OscWeightEBarMuBar
+                tableConfig:
+                  initArguments:
+                    - "FLUX_FLAVOR anti-electron"
+                    - "INTERACTION_FLAVOR anti-muon"
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "PRODUCTION_HEIGHT 20"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_fixed.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/grid_E1000_cZ700.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                    
+              - name: OscWeightEBarTauBar
+                tableConfig:
+                  initArguments:
+                    - "FLUX_FLAVOR anti-electron"
+                    - "INTERACTION_FLAVOR anti-tau"
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "PRODUCTION_HEIGHT 20"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_fixed.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/grid_E1000_cZ700.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                    
+              - name: OscWeightMuBarEBar
+                tableConfig:
+                  initArguments:
+                    - "FLUX_FLAVOR anti-muon"
+                    - "INTERACTION_FLAVOR anti-electron"
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "PRODUCTION_HEIGHT 20"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_fixed.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/grid_E1000_cZ700.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                    
+              - name: OscWeightMuBarMuBar
+                tableConfig:
+                  initArguments:
+                    - "FLUX_FLAVOR anti-muon"
+                    - "INTERACTION_FLAVOR anti-muon"
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "PRODUCTION_HEIGHT 20"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_fixed.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/grid_E1000_cZ700.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                    
+              - name: OscWeightMuBarTauBar
+                tableConfig:
+                  initArguments:
+                    - "FLUX_FLAVOR anti-muon"
+                    - "INTERACTION_FLAVOR anti-tau"
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "PRODUCTION_HEIGHT 20"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_fixed.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/grid_E1000_cZ700.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                    
+                    
+
+              
+
+
+                

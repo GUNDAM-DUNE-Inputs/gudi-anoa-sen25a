@@ -1,0 +1,16 @@
+# Parameter injection
+
+injectOnToyData: true
+
+parameterSetList:
+
+  - name: "Oscillation Parameters"
+    parameterValues:
+      - { name: "PMNS_SIN_SQUARED_12", value: 0.303 }
+      - { name: "PMNS_SIN_SQUARED_13", value: 0.02225 }
+      - { name: "PMNS_SIN_SQUARED_23", value: 0.451 }
+      - { name: "PMNS_DELTA_MASS_SQUARED_21", value: 7.41E-5 }
+      - { name: "PMNS_DELTA_MASS_SQUARED_32", value: 2.51E-3 }
+      - { name: "PMNS_DELTA_CP", value: -2.233 }
+
+# end

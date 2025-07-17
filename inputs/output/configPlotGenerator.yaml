@@ -1,0 +1,46 @@
+
+varDictionaries:
+  - name: "ReactionCode"
+    dictionary: "./inputs/output/dictionaries/ReactionCodesDict.yaml"
+
+histogramsDefinition:
+  - varToPlot: "Raw"
+
+  #- varToPlot: "Raw"
+  #  splitVars: ["", "mcMode"]
+  #  useSampleBinning: true
+  #  xTitle: "Reconstructed neutrino energy (GeV)"
+  #  yTitle: "Counts"
+
+  #- varToPlot: "recoEnuLepCalo"
+  #  useSampleBinning: true
+  #  xTitle: "E_{#mu} (GeV)"
+  #  yTitle: "Counts GeV"
+  #  xMax: 20.0
+
+  #- varToPlot: "recoEnuEcalo"
+  #  useSampleBinning: true
+  #  xTitle: "E_{e} (GeV)"
+  #  yTitle: "Counts GeV"
+  #  xMax: 20.0
+
+  #- varToPlot: "recoEle_thetaZ"
+  #  useSampleBinning: true
+  #  xTitle: "cos#{theta}_e^{Zenith}"
+  #  yTitle: "Counts"
+  #  xMin: -1
+  #  xMax: 1
+
+  #- varToPlot: "recoMu_thetaZ"
+  #  useSampleBinning: true
+  #  xTitle: "cos#{theta}_{#{mu}}^{Zenith}"
+  #  yTitle: "Counts"
+  #  xMin: -1
+  #  xMax: 1
+  
+canvasParameters:
+  height: 700
+  width: 1200
+  nbXplots: 3
+  nbYplots: 2
+

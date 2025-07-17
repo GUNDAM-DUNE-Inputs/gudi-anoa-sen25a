@@ -1,0 +1,40 @@
+## Apply oscillation parameter values:  Use with
+#
+# --override-files ${CONFIG_DIR}/overrides/nuFitSkOscillationParameters.yaml
+#
+# This sets the oscillation parameters to PDG 2025 values published at
+# https://pdg.lbl.gov/2025/html/authors_2025.html
+
+fitterEngineConfig:
+  likelihoodInterfaceConfig:
+    propagatorConfig:
+      parametersManagerConfig:
+        parameterSetList:
+          - name: "Oscillation Parameters"
+
+            parameterDefinitions:
+              - name: "PMNS_SIN_SQUARED_12"
+                priorValue: 0.307        # +/- 0.012
+                
+              - name: "PMNS_SIN_SQUARED_13"
+                priorValue: 0.0216      #  +/- 0.0006
+                
+              - name: "PMNS_SIN_SQUARED_23"
+                priorValue: 0.534        # +0.015/-0.019
+                
+              - name: "PMNS_DELTA_MASS_SQUARED_21"
+                priorValue: 7.50E-5      # +/- 0.19E-5
+                
+              - name: "PMNS_DELTA_MASS_SQUARED_32"
+                priorValue: 2.451E-3      # +/- 0.026E-3 (normal ordering)
+                # priorValue: -2.527E-3     # +/- 0.034 (inverted ordering)
+                
+              - name: "PMNS_DELTA_CP"
+                priorValue: -2.233  # Nu-FIT 5.2 with SK atm: -2.233
+
+                
+                
+
+
+
+                

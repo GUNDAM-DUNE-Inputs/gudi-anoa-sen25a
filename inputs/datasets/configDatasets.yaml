@@ -1,0 +1,96 @@
+# ------------------------
+# Dataset definitions
+# ------------------------
+
+- name: "FD"
+  isEnabled: true
+
+  showSelectedEventCount: true
+
+# Debug Options
+  devSingleThreadEventSelection: false
+  devSingleThreadEventLoaderAndIndexer: false
+
+  selectedDataEntry: "data-FD" # default
+
+  model:
+
+    additionalLeavesStorage:
+      - "iniNuFlavor"    # PDG of the flux
+      - "interNuFlavor"  # PDG of the interaction
+      - "detNuFlavor"    # PDG of the selection [nue(12), numu(14), or NC(0)]
+      - "mcPDG"
+      - "mcPDGorig"
+      - "mcIsCC"
+      - "mcMode"
+      - "mcEnu"
+      - "mcthetaZ"
+      - "recoEnuLepCalo"
+      - "recoMu_thetaZ"
+      - "recoEnuEcalo"
+      - "recoEle_thetaZ"
+
+    # common tree name where the data are stored in each file
+    tree: "event_tree"
+
+    # MC files
+    filePathList:
+      # Initial flavour: nue Selected flavour: nue
+      - "${OA_INPUT_FOLDER}/atm_hdnue_x_nue_nueselec_gudi.root"
+      - "${OA_INPUT_FOLDER}/atm_hdnue_x_nutau_nueselec_gudi.root"
+      - "${OA_INPUT_FOLDER}/atm_hdnue_x_numu_nueselec_gudi.root"
+      # Initial flavour: nuebar Selected flavour: nue
+      - "${OA_INPUT_FOLDER}/atm_hdnuebar_x_nuebar_nueselec_gudi.root"
+      - "${OA_INPUT_FOLDER}/atm_hdnuebar_x_nutaubar_nueselec_gudi.root"
+      - "${OA_INPUT_FOLDER}/atm_hdnuebar_x_numubar_nueselec_gudi.root"
+      # Initial flavour: numu Selected flavour: nue
+      - "${OA_INPUT_FOLDER}/atm_hdnumu_x_numu_nueselec_gudi.root"
+      - "${OA_INPUT_FOLDER}/atm_hdnumu_x_nue_nueselec_gudi.root"
+      - "${OA_INPUT_FOLDER}/atm_hdnumu_x_nutau_nueselec_gudi.root"
+      # Initial flavour: numubar Selected flavour: nue
+      - "${OA_INPUT_FOLDER}/atm_hdnumubar_x_numubar_nueselec_gudi.root"
+      - "${OA_INPUT_FOLDER}/atm_hdnumubar_x_nuebar_nueselec_gudi.root"
+      - "${OA_INPUT_FOLDER}/atm_hdnumubar_x_nutaubar_nueselec_gudi.root"
+      # Initial flavour: nue Selected flavour: numu
+      - "${OA_INPUT_FOLDER}/atm_hdnue_x_nue_numuselec_gudi.root"
+      - "${OA_INPUT_FOLDER}/atm_hdnue_x_nutau_numuselec_gudi.root"
+      - "${OA_INPUT_FOLDER}/atm_hdnue_x_numu_numuselec_gudi.root"
+      # Initial flavour: nuebar Selected flavour: numu
+      - "${OA_INPUT_FOLDER}/atm_hdnuebar_x_nuebar_numuselec_gudi.root"
+      - "${OA_INPUT_FOLDER}/atm_hdnuebar_x_nutaubar_numuselec_gudi.root"
+      - "${OA_INPUT_FOLDER}/atm_hdnuebar_x_numubar_numuselec_gudi.root"
+      # Initial flavour: numu Selected flavour: numu
+      - "${OA_INPUT_FOLDER}/atm_hdnumu_x_numu_numuselec_gudi.root"
+      - "${OA_INPUT_FOLDER}/atm_hdnumu_x_nue_numuselec_gudi.root"
+      - "${OA_INPUT_FOLDER}/atm_hdnumu_x_nutau_numuselec_gudi.root"
+      # Initial flavour: numubar Selected flavour: numu
+      - "${OA_INPUT_FOLDER}/atm_hdnumubar_x_numubar_numuselec_gudi.root"
+      - "${OA_INPUT_FOLDER}/atm_hdnumubar_x_nuebar_numuselec_gudi.root"
+      - "${OA_INPUT_FOLDER}/atm_hdnumubar_x_nutaubar_numuselec_gudi.root"
+      # Initial flavour: nue Selected flavour: nc
+      #- "${OA_INPUT_FOLDER}/atm_hdnue_x_nue_ncselec_gudi.root"
+      #- "${OA_INPUT_FOLDER}/atm_hdnue_x_nutau_ncselec_gudi.root"
+      #- "${OA_INPUT_FOLDER}/atm_hdnue_x_numu_ncselec_gudi.root"
+      # Initial flavour: nuebar Selected flavour: nc
+      #- "${OA_INPUT_FOLDER}/atm_hdnuebar_x_nuebar_ncselec_gudi.root"
+      #- "${OA_INPUT_FOLDER}/atm_hdnuebar_x_nutaubar_ncselec_gudi.root"
+      #- "${OA_INPUT_FOLDER}/atm_hdnuebar_x_numubar_ncselec_gudi.root"
+      # Initial flavour: numu Selected flavour: nc
+      #- "${OA_INPUT_FOLDER}/atm_hdnumu_x_numu_ncselec_gudi.root"
+      #- "${OA_INPUT_FOLDER}/atm_hdnumu_x_nue_ncselec_gudi.root"
+      #- "${OA_INPUT_FOLDER}/atm_hdnumu_x_nutau_ncselec_gudi.root"
+      # Initial flavour: numubar Selected flavour: nc
+      #- "${OA_INPUT_FOLDER}/atm_hdnumubar_x_numubar_ncselec_gudi.root"
+      #- "${OA_INPUT_FOLDER}/atm_hdnumubar_x_nuebar_ncselec_gudi.root"
+      #- "${OA_INPUT_FOLDER}/atm_hdnumubar_x_nutaubar_ncselec_gudi.root"
+
+    # base weight
+    nominalWeightFormula:
+      - "mcGenWeight"
+
+  data:
+
+    - name: "data-FD"
+      tree: "NumuFromNonswap"
+      filePathList:
+        - "${OA_INPUT_FOLDER}/atm_hdnue_x_nue_nueselec_gudi.root"        #mu->mu

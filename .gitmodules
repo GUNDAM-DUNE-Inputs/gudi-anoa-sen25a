@@ -1,0 +1,6 @@
+[submodule "gundamOscAnaTools"]
+	path = gundamOscAnaTools
+	url = https://github.com/ClarkMcGrew/gundamOscAnaTools.git
+[submodule "macros/OscillationGrid/DUNEProductionHeights"]
+	path = macros/OscillationGrid/DUNEProductionHeights
+	url = https://github.com/M-Ismerio/DUNEProductionHeights.git

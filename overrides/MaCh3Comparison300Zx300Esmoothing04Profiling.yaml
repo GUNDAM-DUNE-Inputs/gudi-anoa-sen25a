@@ -1,0 +1,278 @@
+## Apply oscillation parameter values:  Use with
+#
+# --override-files ${CONFIG_DIR}/overrides/MaCh3ComparisonFixedHeight.yaml
+#
+# Sets the oscillation weight calculation grid to compare with MaCh3 with
+# a fixed production height. The binning is in the file name
+# ./inputs/parameters/oscProb/ProdHeightDist_E300_cZ300_N1_hbin2.5.root"
+
+
+fitterEngineConfig:
+  likelihoodInterfaceConfig:
+    propagatorConfig:
+      parametersManagerConfig:
+        parameterSetList:
+          - name: "Oscillation Parameters"
+
+            parameterDefinitions:
+              - name: "PMNS_SIN_SQUARED_12"
+                isFixed: false
+                priorValue: 0.303        # Nu-FIT 5.2 with SK atm: 0.303
+                
+              - name: "PMNS_SIN_SQUARED_13"
+                isFixed: false
+                priorValue: 0.02225      # Nu-FIT 5.2 with SK atm: 0.02225
+                
+              - name: "PMNS_SIN_SQUARED_23"
+                isFixed: false
+                priorValue: 0.451        # Nu-FIT 5.2 with SK atm: 0.451
+                
+              - name: "PMNS_DELTA_MASS_SQUARED_21"
+                isFixed: false
+                priorValue: 7.41E-5      # Nu-FIT 5.2 with SK atm: 7.41E-5
+                
+              - name: "PMNS_DELTA_MASS_SQUARED_32"
+                isFixed: false
+                priorValue: 2.51E-3      # Nu-FIT 5.2 with SK atm: 2.51E-3
+                
+              - name: "PMNS_DELTA_CP"
+                isFixed: false
+                priorValue: -2.233  # Nu-FIT 5.2 with SK atm: -2.233
+
+
+            dialSetDefinitions:
+              
+              - name: OscWeightElectronElectron
+                dialType: Kriged
+                applyCondition: "[mcIsCC] == 1 && [iniNuFlavor]==12 && [interNuFlavor]==12 && [detNuFlavor] > 0"
+                tableConfig:
+                  name: "Kriged nue to nue with CUDAProb3"  # Must be unique.
+                  initArguments:
+                    - "FLUX_FLAVOR electron"          # electron neutrino flux
+                    - "INTERACTION_FLAVOR electron"   # electron neutrino
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_height.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/ProdHeightDist_E300_cZ300_N1_hbin2.5.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                  binningFunction: "binTable"
+                  binningVariables:
+                    - "mcEnu"          # Nu energy in GeV
+                    - "mcthetaZ"       # Zenith Cosine
+
+              - name: OscWeightElectronMuon
+                dialType: Kriged
+                applyCondition: "[mcIsCC] == 1 && [iniNuFlavor]==12 && [interNuFlavor]==14 && [detNuFlavor] > 0"
+                tableConfig:
+                  name: "Kriged nue to numu with CUDAProb3"  # Must be unique.
+                  initArguments:
+                    - "FLUX_FLAVOR electron"          # electron neutrino flux
+                    - "INTERACTION_FLAVOR muon"   # electron neutrino
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_height.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/ProdHeightDist_E300_cZ300_N1_hbin2.5.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                  binningFunction: "binTable"
+                  binningVariables:
+                    - "mcEnu"          # Nu energy in GeV
+                    - "mcthetaZ"       # Zenith Cosine
+
+              - name: OscWeightElectronTau
+                dialType: Kriged
+                applyCondition: "[mcIsCC] == 1 && [iniNuFlavor]==12 && [interNuFlavor]==16 && [detNuFlavor] > 0"
+                tableConfig:
+                  name: "Kriged nue to nutau with CUDAProb3"  # Must be unique.
+                  initArguments:
+                    - "FLUX_FLAVOR electron"          # electron neutrino flux
+                    - "INTERACTION_FLAVOR tau"   # electron neutrino
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_height.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/ProdHeightDist_E300_cZ300_N1_hbin2.5.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                  binningFunction: "binTable"
+                  binningVariables:
+                    - "mcEnu"          # Nu energy in GeV
+                    - "mcthetaZ"       # Zenith Cosine
+
+              - name: OscWeightMuonElectron
+                dialType: Kriged
+                applyCondition: "[mcIsCC] == 1 && [iniNuFlavor]==14 && [interNuFlavor]==12 && [detNuFlavor] > 0"
+                tableConfig:
+                  name: "Kriged numu to nue with CUDAProb3"  # Must be unique.
+                  initArguments:
+                    - "FLUX_FLAVOR muon"
+                    - "INTERACTION_FLAVOR electron"
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_height.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/ProdHeightDist_E300_cZ300_N1_hbin2.5.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                  binningFunction: "binTable"
+                  binningVariables:
+                    - "mcEnu"          # Nu energy in GeV
+                    - "mcthetaZ"       # Zenith Cosine
+
+              - name: OscWeightMuonMuon
+                dialType: Kriged
+                applyCondition: "[mcIsCC] == 1 && [iniNuFlavor]==14 && [interNuFlavor]==14 && [detNuFlavor] > 0"
+                tableConfig:
+                  name: "Kriged numu to numu with CUDAProb3"  # Must be unique.
+                  initArguments:
+                    - "FLUX_FLAVOR muon"
+                    - "INTERACTION_FLAVOR muon"
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_height.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/ProdHeightDist_E300_cZ300_N1_hbin2.5.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                  binningFunction: "binTable"
+                  binningVariables:
+                    - "mcEnu"          # Nu energy in GeV
+                    - "mcthetaZ"       # Zenith Cosine
+
+              - name: OscWeightMuonTau
+                dialType: Kriged
+                applyCondition: "[mcIsCC] == 1 && [iniNuFlavor]==14 && [interNuFlavor]==16 && [detNuFlavor] > 0"
+                tableConfig:
+                  name: "Kriged numu to nutau with CUDAProb3"  # Must be unique.
+                  initArguments:
+                    - "FLUX_FLAVOR muon"
+                    - "INTERACTION_FLAVOR tau"
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_height.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/ProdHeightDist_E300_cZ300_N1_hbin2.5.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                  binningFunction: "binTable"
+                  binningVariables:
+                    - "mcEnu"          # Nu energy in GeV
+                    - "mcthetaZ"       # Zenith Cosine
+
+              - name: OscWeightEBarEBar
+                dialType: Kriged
+                applyCondition: "[mcIsCC] == 1 && [iniNuFlavor]==-12 && [interNuFlavor]==-12 && [detNuFlavor] > 0"
+                tableConfig:
+                  name: "Kriged nue-bar to nue-bar with CUDAProb3"  # Must be unique.
+                  initArguments:
+                    - "FLUX_FLAVOR anti-electron"
+                    - "INTERACTION_FLAVOR anti-electron"
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_height.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/ProdHeightDist_E300_cZ300_N1_hbin2.5.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                  binningFunction: "binTable"
+                  binningVariables:
+                    - "mcEnu"          # Nu energy in GeV
+                    - "mcthetaZ"       # Zenith Cosine
+
+              - name: OscWeightEBarMuBar
+                dialType: Kriged
+                applyCondition: "[mcIsCC] == 1 && [iniNuFlavor]==-12 && [interNuFlavor]==-14 && [detNuFlavor] > 0"
+                tableConfig:
+                  name: "Kriged nue-bar to numu-bar with CUDAProb3"  # Must be unique.
+                  initArguments:
+                    - "FLUX_FLAVOR anti-electron"
+                    - "INTERACTION_FLAVOR anti-muon"
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_height.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/ProdHeightDist_E300_cZ300_N1_hbin2.5.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                  binningFunction: "binTable"
+                  binningVariables:
+                    - "mcEnu"          # Nu energy in GeV
+                    - "mcthetaZ"       # Zenith Cosine
+
+              - name: OscWeightEBarTauBar
+                dialType: Kriged
+                applyCondition: "[mcIsCC] == 1 && [iniNuFlavor]==-12 && [interNuFlavor]==-16 && [detNuFlavor] > 0"
+                tableConfig:
+                  name: "Kriged nue-bar to nutau-bar with CUDAProb3"  # Must be unique.
+                  initArguments:
+                    - "FLUX_FLAVOR anti-electron"
+                    - "INTERACTION_FLAVOR anti-tau"
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_height.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/ProdHeightDist_E300_cZ300_N1_hbin2.5.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                  binningFunction: "binTable"
+                  binningVariables:
+                    - "mcEnu"          # Nu energy in GeV
+                    - "mcthetaZ"       # Zenith Cosine
+
+              - name: OscWeightMuBarEBar
+                dialType: Kriged
+                applyCondition: "[mcIsCC] == 1 && [iniNuFlavor]==-14 && [interNuFlavor]==-12 && [detNuFlavor] > 0"
+                tableConfig:
+                  name: "Kriged numu-bar to nue-bar with CUDAProb3"  # Must be unique.
+                  initArguments:
+                    - "FLUX_FLAVOR anti-muon"
+                    - "INTERACTION_FLAVOR anti-electron"
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_height.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/ProdHeightDist_E300_cZ300_N1_hbin2.5.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                  binningFunction: "binTable"
+                  binningVariables:
+                    - "mcEnu"          # Nu energy in GeV
+                    - "mcthetaZ"       # Zenith Cosine
+
+              - name: OscWeightMuBarMuBar
+                dialType: Kriged
+                applyCondition: "[mcIsCC] == 1 && [iniNuFlavor]==-14 && [interNuFlavor]==-14 && [detNuFlavor] > 0"
+                tableConfig:
+                  name: "Kriged numu-bar to numu-bar with CUDAProb3"  # Must be unique.
+                  initArguments:
+                    - "FLUX_FLAVOR anti-muon"
+                    - "INTERACTION_FLAVOR anti-muon"
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_height.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/ProdHeightDist_E300_cZ300_N1_hbin2.5.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                  binningFunction: "binTable"
+                  binningVariables:
+                    - "mcEnu"          # Nu energy in GeV
+                    - "mcthetaZ"       # Zenith Cosine
+
+              - name: OscWeightMuBarTauBar
+                dialType: Kriged
+                applyCondition: "[mcIsCC] == 1 && [iniNuFlavor]==-14 && [interNuFlavor]==-16 && [detNuFlavor] > 0"
+                tableConfig:
+                  name: "Kriged numu-bar to nutau-bar with CUDAProb3"  # Must be unique.
+                  initArguments:
+                    - "FLUX_FLAVOR anti-muon"
+                    - "INTERACTION_FLAVOR anti-tau"
+                    - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+                    - "ENERGY_RESOLUTION 0.04"
+                    - "ZENITH_RESOLUTION 0.0"
+                    - "CONFIG ./inputs/parameters/oscProb/GUNDAM_CUDAProb3_height.config"
+                    - "BINNING_FILE ./inputs/parameters/oscProb/ProdHeightDist_E300_cZ300_N1_hbin2.5.root"
+                    - "BINNING_HIST ProductionHeight_numu"
+                  binningFunction: "binTable"
+                  binningVariables:
+                    - "mcEnu"          # Nu energy in GeV
+                    - "mcthetaZ"       # Zenith Cosine
+
+                    
+
+              
+
+
+                

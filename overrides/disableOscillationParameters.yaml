@@ -1,0 +1,18 @@
+## Disable the oscillation parameters:  Use with
+#
+# --override-files ${CONFIG_DIR}/overrides/disableOscillationParameters.yaml
+#
+# Disable the application of the oscillation parameters.  This is not the
+# same as "no oscillations" since the "non-swap" samples are still used.
+# This is for debugging application of the "cross section" and "flux"
+# against another fitter without involving any of the oscillation weight
+# calculation.
+
+fitterEngineConfig:
+  likelihoodInterfaceConfig:
+    propagatorConfig:
+      parametersManagerConfig:
+        parameterSetList:
+          - name: "Oscillation Parameters"
+            isEnabled: false
+

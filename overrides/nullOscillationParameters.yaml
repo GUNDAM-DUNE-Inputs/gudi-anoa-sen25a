@@ -1,0 +1,39 @@
+## Apply oscillation parameter values:  Use with
+#
+# --override-files ${CONFIG_DIR}/overrides/nullOscillationParameters.yaml
+#
+# This sets the oscillation parameters to "null" oscillations by setting all
+# of the mixing angles to zero.
+
+fitterEngineConfig:
+  likelihoodInterfaceConfig:
+    propagatorConfig:
+      parametersManagerConfig:
+        parameterSetList:
+          - name: "Oscillation Parameters"
+
+            parameterDefinitions:
+              - name: "PMNS_SIN_SQUARED_12"
+                priorValue: 0.0          # Nu-FIT 5.2 with SK atm: 0.303
+                
+              - name: "PMNS_SIN_SQUARED_13"
+                priorValue: 0.0          # Nu-FIT 5.2 with SK atm: 0.02225
+                
+              - name: "PMNS_SIN_SQUARED_23"
+                priorValue: 0.0          # Nu-FIT 5.2 with SK atm: 0.451
+                
+              - name: "PMNS_DELTA_MASS_SQUARED_21"
+                priorValue: 7.41E-5      # Nu-FIT 5.2 with SK atm: 7.41E-5
+                
+              - name: "PMNS_DELTA_MASS_SQUARED_32"
+                priorValue: 2.51E-3      # Nu-FIT 5.2 with SK atm: 2.51E-3
+                
+              - name: "PMNS_DELTA_CP"
+                priorValue: -2.233  # Nu-FIT 5.2 with SK atm: -2.233
+
+                
+                
+
+
+
+                

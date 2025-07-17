@@ -8,8 +8,7 @@ git clone https://github.com/ulyevarou/gudi-anoa-sen25a.git
 cd gudi-anoa-sen25a
 
 # Initialize and update submodules
-git submodule init
-git submodule update
+git submodule update --init --recursive
 ```
 
 ## 2. Set Up the GUNDAM Environment ⚙️

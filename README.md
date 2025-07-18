@@ -4,7 +4,7 @@
 
 ```bash
 # Clone the main repo
-git clone https://github.com/ulyevarou/gudi-anoa-sen25a.git
+git clone https://github.com/GUNDAM-DUNE-Inputs/gudi-anoa-sen25a.git
 cd gudi-anoa-sen25a
 
 # Initialize and update submodules

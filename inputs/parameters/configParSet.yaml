@@ -55,6 +55,14 @@
       parameterStepSize: 1.0
       parameterLimits: [ -3.1416, 3.1416 ]
 
+    - name: "PMNS_SIGN_MASS_SQUARED_32"
+      isEnabled: true
+      isFixed: true
+      priorValue: 1.0         # PDG 2025 value: inverted
+      priorType: Flat
+      parameterStepSize: 1.0
+      parameterLimits: [ -2.0, 2.0 ]
+
   dialSetDefinitions:
 
   #######################################################################3
@@ -74,6 +82,7 @@
         - name: "PMNS_DELTA_MASS_SQUARED_21"
         - name: "PMNS_DELTA_MASS_SQUARED_32"
         - name: "PMNS_DELTA_CP"
+        - name: "PMNS_SIGN_MASS_SQUARED_32"
       tableConfig:
         name: "Kriged numu to nue with CUDAProb3"  # Must be unique.
         libraryPath: "${NUOSCILLATOR_ROOT}/lib/libTabulatedNuOscillator.so"
@@ -81,7 +90,7 @@
         initArguments:
           - "FLUX_FLAVOR muon"        # muon neutrino flux
           - "INTERACTION_FLAVOR electron"   # electron neutrino
-          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP,SIGN32"
           - "ENERGY_RESOLUTION 0.04"
           - "ZENITH_RESOLUTION 0.0"
           - "PRODUCTION_HEIGHT 20"
@@ -105,6 +114,7 @@
         - name: "PMNS_DELTA_MASS_SQUARED_21"
         - name: "PMNS_DELTA_MASS_SQUARED_32"
         - name: "PMNS_DELTA_CP"
+        - name: "PMNS_SIGN_MASS_SQUARED_32"
       tableConfig:
         name: "Kriged numu to numu with CUDAProb3"  # Must be unique.
         libraryPath: "${NUOSCILLATOR_ROOT}/lib/libTabulatedNuOscillator.so"
@@ -112,7 +122,7 @@
         initArguments:
           - "FLUX_FLAVOR muon"          # muon neutrino flux
           - "INTERACTION_FLAVOR muon"   # muon neutrino
-          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP,SIGN32"
           - "ENERGY_RESOLUTION 0.04"
           - "ZENITH_RESOLUTION 0.0"
           - "PRODUCTION_HEIGHT 20"
@@ -136,6 +146,7 @@
         - name: "PMNS_DELTA_MASS_SQUARED_21"
         - name: "PMNS_DELTA_MASS_SQUARED_32"
         - name: "PMNS_DELTA_CP"
+        - name: "PMNS_SIGN_MASS_SQUARED_32"
       tableConfig:
         name: "Kriged numu to nutau with CUDAProb3"  # Must be unique.
         libraryPath: "${NUOSCILLATOR_ROOT}/lib/libTabulatedNuOscillator.so"
@@ -143,7 +154,7 @@
         initArguments:
           - "FLUX_FLAVOR muon"          # muon neutrino flux
           - "INTERACTION_FLAVOR tau"    # tau neutrino
-          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP,SIGN32"
           - "ENERGY_RESOLUTION 0.04"
           - "ZENITH_RESOLUTION 0.0"
           - "PRODUCTION_HEIGHT 20"
@@ -173,6 +184,7 @@
         - name: "PMNS_DELTA_MASS_SQUARED_21"
         - name: "PMNS_DELTA_MASS_SQUARED_32"
         - name: "PMNS_DELTA_CP"
+        - name: "PMNS_SIGN_MASS_SQUARED_32"
       tableConfig:
         name: "Kriged nue to nue with CUDAProb3"  # Must be unique.
         libraryPath: "${NUOSCILLATOR_ROOT}/lib/libTabulatedNuOscillator.so"
@@ -180,7 +192,7 @@
         initArguments:
           - "FLUX_FLAVOR electron"          # electron neutrino flux
           - "INTERACTION_FLAVOR electron"   # electron neutrino
-          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP,SIGN32"
           - "ENERGY_RESOLUTION 0.04"
           - "ZENITH_RESOLUTION 0.0"
           - "PRODUCTION_HEIGHT 20"
@@ -204,6 +216,7 @@
         - name: "PMNS_DELTA_MASS_SQUARED_21"
         - name: "PMNS_DELTA_MASS_SQUARED_32"
         - name: "PMNS_DELTA_CP"
+        - name: "PMNS_SIGN_MASS_SQUARED_32"
       tableConfig:
         name: "Kriged nue to numu with CUDAProb3"  # Must be unique.
         libraryPath: "${NUOSCILLATOR_ROOT}/lib/libTabulatedNuOscillator.so"
@@ -211,7 +224,7 @@
         initArguments:
           - "FLUX_FLAVOR electron"      # electron neutrino flux
           - "INTERACTION_FLAVOR muon"   # muon neutrino
-          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP,SIGN32"
           - "ENERGY_RESOLUTION 0.04"
           - "ZENITH_RESOLUTION 0.0"
           - "PRODUCTION_HEIGHT 20"
@@ -235,6 +248,7 @@
         - name: "PMNS_DELTA_MASS_SQUARED_21"
         - name: "PMNS_DELTA_MASS_SQUARED_32"
         - name: "PMNS_DELTA_CP"
+        - name: "PMNS_SIGN_MASS_SQUARED_32"
       tableConfig:
         name: "Kriged nue to nutau with CUDAProb3"  # Must be unique.
         libraryPath: "${NUOSCILLATOR_ROOT}/lib/libTabulatedNuOscillator.so"
@@ -242,7 +256,7 @@
         initArguments:
           - "FLUX_FLAVOR electron"      # electron neutrino flux
           - "INTERACTION_FLAVOR tau"    # tau neutrino
-          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP,SIGN32"
           - "ENERGY_RESOLUTION 0.04"
           - "ZENITH_RESOLUTION 0.0"
           - "PRODUCTION_HEIGHT 20"
@@ -272,6 +286,7 @@
         - name: "PMNS_DELTA_MASS_SQUARED_21"
         - name: "PMNS_DELTA_MASS_SQUARED_32"
         - name: "PMNS_DELTA_CP"
+        - name: "PMNS_SIGN_MASS_SQUARED_32"
       tableConfig:
         name: "Kriged numu-bar to nue-bar with CUDAProb3"  # Must be unique.
         libraryPath: "${NUOSCILLATOR_ROOT}/lib/libTabulatedNuOscillator.so"
@@ -279,7 +294,7 @@
         initArguments:
           - "FLUX_FLAVOR anti-muon"              # muon anti-neutrino flux
           - "INTERACTION_FLAVOR anti-electron"   # electron anti-neutrino
-          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP,SIGN32"
           - "ENERGY_RESOLUTION 0.04"
           - "ZENITH_RESOLUTION 0.0"
           - "PRODUCTION_HEIGHT 20"
@@ -303,6 +318,7 @@
         - name: "PMNS_DELTA_MASS_SQUARED_21"
         - name: "PMNS_DELTA_MASS_SQUARED_32"
         - name: "PMNS_DELTA_CP"
+        - name: "PMNS_SIGN_MASS_SQUARED_32"
       tableConfig:
         name: "Kriged numu-bar to numu-bar with CUDAProb3"  # Must be unique.
         libraryPath: "${NUOSCILLATOR_ROOT}/lib/libTabulatedNuOscillator.so"
@@ -310,7 +326,7 @@
         initArguments:
           - "FLUX_FLAVOR anti-muon"          # muon anti-neutrino flux
           - "INTERACTION_FLAVOR anti-muon"   # muon anti-neutrino
-          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP,SIGN32"
           - "ENERGY_RESOLUTION 0.04"
           - "ZENITH_RESOLUTION 0.0"
           - "PRODUCTION_HEIGHT 20"
@@ -334,6 +350,7 @@
         - name: "PMNS_DELTA_MASS_SQUARED_21"
         - name: "PMNS_DELTA_MASS_SQUARED_32"
         - name: "PMNS_DELTA_CP"
+        - name: "PMNS_SIGN_MASS_SQUARED_32"
       tableConfig:
         name: "Kriged numu-bar to nutau-bar with CUDAProb3"  # Must be unique.
         libraryPath: "${NUOSCILLATOR_ROOT}/lib/libTabulatedNuOscillator.so"
@@ -341,7 +358,7 @@
         initArguments:
           - "FLUX_FLAVOR anti-muon"          # muon anti-neutrino flux
           - "INTERACTION_FLAVOR anti-tau"    # tau anti-neutrino
-          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP,SIGN32"
           - "ENERGY_RESOLUTION 0.04"
           - "ZENITH_RESOLUTION 0.0"
           - "PRODUCTION_HEIGHT 20"
@@ -371,6 +388,7 @@
         - name: "PMNS_DELTA_MASS_SQUARED_21"
         - name: "PMNS_DELTA_MASS_SQUARED_32"
         - name: "PMNS_DELTA_CP"
+        - name: "PMNS_SIGN_MASS_SQUARED_32"
       tableConfig:
         name: "Kriged nue-bar to nue-bar with CUDAProb3"  # Must be unique.
         libraryPath: "${NUOSCILLATOR_ROOT}/lib/libTabulatedNuOscillator.so"
@@ -378,7 +396,7 @@
         initArguments:
           - "FLUX_FLAVOR anti-electron"          # electron anti-neutrino flux
           - "INTERACTION_FLAVOR anti-electron"   # electron anti-neutrino
-          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP,SIGN32"
           - "ENERGY_RESOLUTION 0.04"
           - "ZENITH_RESOLUTION 0.0"
           - "PRODUCTION_HEIGHT 20"
@@ -402,6 +420,7 @@
         - name: "PMNS_DELTA_MASS_SQUARED_21"
         - name: "PMNS_DELTA_MASS_SQUARED_32"
         - name: "PMNS_DELTA_CP"
+        - name: "PMNS_SIGN_MASS_SQUARED_32"
       tableConfig:
         name: "Kriged nue-bar to numu-bar with CUDAProb3"  # Must be unique.
         libraryPath: "${NUOSCILLATOR_ROOT}/lib/libTabulatedNuOscillator.so"
@@ -409,7 +428,7 @@
         initArguments:
           - "FLUX_FLAVOR anti-electron"      # electron anti-neutrino flux
           - "INTERACTION_FLAVOR anti-muon"   # muon anti-neutrino
-          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP,SIGN32"
           - "ENERGY_RESOLUTION 0.04"
           - "ZENITH_RESOLUTION 0.0"
           - "PRODUCTION_HEIGHT 20"
@@ -433,6 +452,7 @@
         - name: "PMNS_DELTA_MASS_SQUARED_21"
         - name: "PMNS_DELTA_MASS_SQUARED_32"
         - name: "PMNS_DELTA_CP"
+        - name: "PMNS_SIGN_MASS_SQUARED_32"
       tableConfig:
         name: "Kriged nue-bar to nutau-bar with CUDAProb3"  # Must be unique.
         libraryPath: "${NUOSCILLATOR_ROOT}/lib/libTabulatedNuOscillator.so"
@@ -440,7 +460,7 @@
         initArguments:
           - "FLUX_FLAVOR anti-electron"      # electron anti-neutrino flux
           - "INTERACTION_FLAVOR anti-tau"    # tau anti-neutrino
-          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP"
+          - "PARAMETERS SS12,SS13,SS23,DM21,DM32,DCP,SIGN32"
           - "ENERGY_RESOLUTION 0.04"
           - "ZENITH_RESOLUTION 0.0"
           - "PRODUCTION_HEIGHT 20"

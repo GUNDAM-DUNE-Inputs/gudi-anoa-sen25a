@@ -1,0 +1,24 @@
+## Apply oscillation parameter values:  Use with
+#
+# --override-files ${CONFIG_DIR}/overrides/nuFitSkOscillationParameters.yaml
+#
+# This sets the oscillation parameters to the NuFit 5.2 SK Atmospheric Fit
+# values
+
+fitterEngineConfig:
+  likelihoodInterfaceConfig:
+    propagatorConfig:
+      parametersManagerConfig:
+        parameterSetList:
+          - name: "Oscillation Parameters"
+
+            parameterDefinitions:
+              - name: "PMNS_SIGN_MASS_SQUARED_32"
+                isFixed: false
+
+                
+                
+
+
+
+                

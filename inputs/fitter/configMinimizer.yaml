@@ -26,10 +26,10 @@ enablePostFitErrorFit: true
 # to change the function value by UP. Normally, for chisquared fits
 # UP=1, and for negative log likelihood, UP=0.5
 
-tolerance: 1E-2 # -> used in BANFF
+tolerance: 1E-2
 #    tolerance: 0.1 # for debug
 
-strategy: 1 # used also in BANFF
+strategy: 1 
 maxIterations: 100000
 maxFcnCalls: 1E9
 

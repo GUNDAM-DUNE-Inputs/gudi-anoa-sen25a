@@ -6,163 +6,19 @@ sampleList:
   # Nue selection
   ##########################
 
-  # #nu_{e}
-  - name: "#nu_{e} x #nu_{e}  #nu_{e} Selec"
+  - name: "#nu_{e} Selec"
     isEnabled: true
     binning: "./inputs/samples/binning_DUNE/atm_binning_reco_nueselec.txt"
-    selectionCuts: "sample_idx == 1" 
+    selectionCuts: "detNuFlavor==12 && (iniNuFlavor == interNuFlavor || mcIsCC == 1)" 
     dataSets: [ "FD" ]
 
-  - name: "#nu_{e} x #nu_{#mu} #nu_{e} Selec "
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_nueselec.txt"
-    selectionCuts: "sample_idx == 2 && mcIsCC == 1" 
-    dataSets: [ "FD" ]
-
-  - name: "#nu_{e} x #nu_{#tau} #nu_{e} Selec "
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_nueselec.txt"
-    selectionCuts: "sample_idx == 3 && mcIsCC == 1" 
-    dataSets: [ "FD" ]
-
-  # #nu_{#mu}
-
-  - name: "#nu_{#mu} x #nu_{e}  #nu_{e} Selec"
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_nueselec.txt"
-    selectionCuts: "sample_idx == 4 && mcIsCC == 1" 
-    dataSets: [ "FD" ]
-
-  - name: "#nu_{#mu} x #nu_{#mu} #nu_{e} Selec "
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_nueselec.txt"
-    selectionCuts: "sample_idx == 5" 
-    dataSets: [ "FD" ]
-
-  - name: "#nu_{#mu} x #nu_{#tau} #nu_{e} Selec "
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_nueselec.txt"
-    selectionCuts: "sample_idx == 6 && mcIsCC == 1" 
-    dataSets: [ "FD" ]
-
-##bar{#nu_{e}}
-
-  - name: "#bar{#nu_{e}} x #bar{#nu_{e}}  #nu_{e} Selec"
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_nueselec.txt"
-    selectionCuts: "sample_idx == 7" 
-    dataSets: [ "FD" ]
-
-  - name: "#bar{#nu_{e}} x #bar{#nu_{#mu}} #nu_{e} Selec "
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_nueselec.txt"
-    selectionCuts: "sample_idx == 8 && mcIsCC == 1" 
-    dataSets: [ "FD" ]
-
-  - name: "#bar{#nu_{e}} x #bar{#nu_{#tau}} #nu_{e} Selec "
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_nueselec.txt"
-    selectionCuts: "sample_idx == 9 && mcIsCC == 1" 
-    dataSets: [ "FD" ]
-
-#bar{#nu_{#mu}}
-
-  - name: "#bar{#nu_{#mu}} x #bar{#nu_{e}}  #nu_{e} Selec"
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_nueselec.txt"
-    selectionCuts: "sample_idx == 10 && mcIsCC == 1" 
-    dataSets: [ "FD" ]
-
-  - name: "#bar{#nu_{#mu}} x #bar{#nu_{#mu}} #nu_{e} Selec "
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_nueselec.txt"
-    selectionCuts: "sample_idx == 11" 
-    dataSets: [ "FD" ]
-
-  - name: "#bar{#nu_{#mu}} x #bar{#nu_{#tau}} #nu_{e} Selec "
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_nueselec.txt"
-    selectionCuts: "sample_idx == 12 && mcIsCC == 1" 
-    dataSets: [ "FD" ]
 
  ##########################
   # Numu selection
   ##########################
 
-  # #nu_{e}
-  - name: "#nu_{e} x #nu_{e}  #nu_{#mu} Selec"
+  - name: "#nu_{#mu} Selec"
     isEnabled: true
     binning: "./inputs/samples/binning_DUNE/atm_binning_reco_numuselec.txt"
-    selectionCuts: "sample_idx == 13" 
+    selectionCuts: "detNuFlavor==14 && (iniNuFlavor == interNuFlavor || mcIsCC == 1)" 
     dataSets: [ "FD" ]
-
-  - name: "#nu_{e} x #nu_{#mu} #nu_{#mu} Selec "
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_numuselec.txt"
-    selectionCuts: "sample_idx == 14 && mcIsCC == 1" 
-    dataSets: [ "FD" ]
-
-  - name: "#nu_{e} x #nu_{#tau} #nu_{#mu} Selec "
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_numuselec.txt"
-    selectionCuts: "sample_idx == 15 && mcIsCC == 1" 
-    dataSets: [ "FD" ]
-
-  # #nu_{#mu}
-  - name: "#nu_{#mu} x #nu_{e}  #nu_{#mu} Selec"
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_numuselec.txt"
-    selectionCuts: "sample_idx == 16 && mcIsCC == 1" 
-    dataSets: [ "FD" ]
-
-  - name: "#nu_{#mu} x #nu_{#mu} #nu_{#mu} Selec"
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_numuselec.txt"
-    selectionCuts: "sample_idx == 17" 
-    dataSets: [ "FD" ]
-
-  - name: "#nu_{#mu} x #nu_{#tau} #nu_{#mu} Selec "
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_numuselec.txt"
-    selectionCuts: "sample_idx == 18 && mcIsCC == 1" 
-    dataSets: [ "FD" ]
-##bar{#nu_{e}}
-  - name: "#bar{#nu_{e}} x #bar{#nu_{e}}  #nu_{#mu} Selec"
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_numuselec.txt"
-    selectionCuts: "sample_idx == 19" 
-    dataSets: [ "FD" ]
-
-  - name: "#bar{#nu_{e}} x #bar{#nu_{#mu}} #nu_{#mu} Selec "
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_numuselec.txt"
-    selectionCuts: "sample_idx == 20 && mcIsCC == 1" 
-    dataSets: [ "FD" ]
-
-  - name: "#bar{#nu_{e}} x #bar{#nu_{#tau}} #nu_{#mu} Selec "
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_numuselec.txt"
-    selectionCuts: "sample_idx == 21 && mcIsCC == 1" 
-    dataSets: [ "FD" ]
-#bar{#nu_{#mu}}
-  - name: "#bar{#nu_{#mu}} x #bar{#nu_{e}}  #nu_{#mu} Selec"
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_numuselec.txt"
-    selectionCuts: "sample_idx == 22 && mcIsCC == 1" 
-    dataSets: [ "FD" ]
-
-  - name: "#bar{#nu_{#mu}} x #bar{#nu_{#mu}} #nu_{#mu} Selec "
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_numuselec.txt"
-    selectionCuts: "sample_idx == 23" 
-    dataSets: [ "FD" ]
-
-  - name: "#bar{#nu_{#mu}} x #bar{#nu_{#tau}} #nu_{#mu} Selec "
-    isEnabled: true
-    binning: "./inputs/samples/binning_DUNE/atm_binning_reco_numuselec.txt"
-    selectionCuts: "sample_idx == 24 && mcIsCC == 1" 
-    dataSets: [ "FD" ]
-
-  ##########################
-  # NC selection
-  ##########################

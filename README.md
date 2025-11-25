@@ -139,6 +139,13 @@ gundamFitter -a -d -c ./config_DUNE.yaml -t 8
 gundamFitter -a -c ./config_DUNE.yaml -t 8
 ```
 
+### Asimov fit that includes Earth model systematics
+
+```bash
+gundamFitter -a -c ./config_DUNE.yaml -of overrides/includeEarthModelSys.yaml -t 8
+```
+
+
 Then submit the script:
 
 ```bash

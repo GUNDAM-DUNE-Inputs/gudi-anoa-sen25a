@@ -107,11 +107,13 @@ def write_merged_to_root(filename, cov_np, names_list,
     M.Write(cov_name)
 
     # 2) Names as TObjArray of TObjString
+
     name_array = ROOT.TObjArray(npar)
-    name_array.SetName(names_name)
-    for i, name in enumerate(names_list):
+    #name_array.SetName("ParNames")  # This works in PyROOT when called before AddAt
+    for i,name in enumerate(names_list):
         name_array.AddAt(ROOT.TObjString(name), i)
-    name_array.Write()
+    name_array.Write(names_name, ROOT.TObject.kSingleKey)
+
 
     # 3) Central values as TVectorD
     v_central = ROOT.TVectorD(npar)

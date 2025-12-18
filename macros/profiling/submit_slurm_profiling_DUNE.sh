@@ -8,13 +8,14 @@ set -euo pipefail
 set -x
 
 # ── Config ────────────────────────────────────────────────────────────────────
-input_yaml="./overrides/MaCh3Comparison300Zx300Esmoothing04Profiling.yaml"
+input_yaml="./overrides/MaCh3Comparison300Zx300Esmoothing04Profiling_MO_Frozen.yaml"
+
 
 # parameter definitions (must stay in sync)
 paramName=(sin12 sin13 sin23 m21 m32 dcp)
 occurrence=(1    2     3     4   5    6  )
 priorDefault=(0.303 0.02225 0.452 7.41e-5 2.51e-3 -2.233)
-sigma=(        0.013  0.0007   0.021 1.8e-6     3.4e-5     1.17   )
+sigma=(        0.013  0.0007   0.021 1.8e-6     3.4e-5     0.46   )
 #sigma=(        0.013  0.0007   0.021 1.8e-6     1.05e-4     0.316   ) #- 10 points
 #sigma=(        0.013  0.0007   0.0217 1.8e-6     1.41e-4     1.09 ) #- 7 points
 

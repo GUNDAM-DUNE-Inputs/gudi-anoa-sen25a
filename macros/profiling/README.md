@@ -6,19 +6,7 @@ Build profile scans of oscillation parameters using the GUNDAM framework.
 
 ## Prerequisites
 
-## 1. Checkout & Compile
-
-Switch to the dedicated GUNDAM profiling branch and initialize submodules:
-
-```bash
-git checkout feature/profiling
-git pull
-git submodule sync
-git submodule update --init --recursive
-```
-
-Recompile GUNDAM as usual (e.g. `make` ).
-
+## 1. Make sure that you have the most recent gundam version (main branch)
 ---
 
 ## 2. Configure Submission Scripts
@@ -36,7 +24,7 @@ Recompile GUNDAM as usual (e.g. `make` ).
 
 ### 2.2 `submit_slurm_profiling_DUNE.sh`
 
-1. Set the override YAML for your fit configuration (default: MaCh3Comparison300Zx300Esmoothing04Profiling.yaml):
+1. Set the override YAML for your fit configuration (default: MaCh3Comparison300Zx300Esmoothing04Profiling_MO_Frozen.yaml):
    ```bash
    input_yaml="override/yourProfilingConfig.yaml"
    ```

@@ -2,13 +2,24 @@
 
 `getERPlots.C` reads a GUNDAM output ROOT file from the pre-fit `model` and `data` directories and produces plots and event-rate summaries for `numu` and `nue` selections, split into CC and NC categories.
 
+The macro produces outputs for:
+
+- `numu` selection, CC only;
+- `nue` selection, CC only;
+- `numu` selection, NC only;
+- `nue` selection, NC only;
+- `numu` selection, CC+NC combined;
+- `nue` selection, CC+NC combined.
+
 The macro produces:
 
-- stacked reco/true energy plots by interaction mode;
-- stacked reco/true `cos(theta_Z)` plots by interaction mode;
-- 2D reco and true energy-vs-`cos(theta_Z)` histograms;
-- inclusive and per-mode event-rate summaries;
-- separate reco-energy binning for `numu` and `nue` selections.
+- stacked reco-energy plots by interaction mode;
+- stacked true-energy plots by interaction mode;
+- stacked reco-`cos(theta_Z)` plots by interaction mode;
+- stacked true-`cos(theta_Z)` plots by interaction mode;
+- 2D reco energy-vs-`cos(theta_Z)` histograms;
+- 2D true energy-vs-`cos(theta_Z)` histograms;
+- per-mode event-rate summaries.
 
 ---
 
@@ -62,6 +73,8 @@ modeStacks_numuSel_CC.pdf
 modeStacks_nueSel_CC.pdf
 modeStacks_numuSel_NC.pdf
 modeStacks_nueSel_NC.pdf
+modeStacks_numuSel_All.pdf
+modeStacks_nueSel_All.pdf
 ```
 
 Each PDF contains:

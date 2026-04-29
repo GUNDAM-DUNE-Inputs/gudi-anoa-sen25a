@@ -10,6 +10,7 @@
 #include <TLegend.h>
 #include <TStyle.h>
 #include <TString.h>
+#include <TColor.h>
 
 #include <iostream>
 #include <iomanip>
@@ -425,11 +426,106 @@ namespace {
         can.SetRightMargin(0.10);
     }
 
+    void fillOneCategory(Category& cat,
+                         bool isData,
+                         int mode,
+                         double w,
+                         double Ereco,
+                         double czreco,
+                         double Etrue,
+                         double cztrue)
+    {
+        // -----------------------------------------------------
+        // Inclusive event-rate counters
+        // -----------------------------------------------------
+        if (!isData) {
+            cat.rate_mc += w;
+            cat.n_mc    += 1;
+        } else {
+            cat.rate_data += w;
+            cat.n_data    += 1;
+        }
+
+        // -----------------------------------------------------
+        // Per-mode event-rate counters
+        //
+        // For data/Asimov, this works only if mcMode exists.
+        // If the data tree has no mcMode leaf, inclusive data rates
+        // are still printed, but data per-mode rates remain zero.
+        // -----------------------------------------------------
+        if (mode >= 0 && mode < NMODES) {
+            if (!isData) {
+                cat.rate_mc_mode[mode] += w;
+                cat.n_mc_mode[mode]    += 1;
+            } else {
+                cat.rate_data_mode[mode] += w;
+                cat.n_data_mode[mode]    += 1;
+            }
+        }
+
+        // -----------------------------------------------------
+        // Fill histograms
+        // -----------------------------------------------------
+        if (!isData) {
+            if (mode < 0 || mode >= NMODES) {
+                return;
+            }
+
+            if (std::isfinite(Ereco)) {
+                cat.recoE_mc[mode]->Fill(Ereco, w);
+            }
+
+            if (std::isfinite(czreco)) {
+                cat.recoCos_mc[mode]->Fill(czreco, w);
+            }
+
+            if (std::isfinite(Etrue)) {
+                cat.trueE_mc[mode]->Fill(Etrue, w);
+            }
+
+            if (std::isfinite(cztrue)) {
+                cat.trueCos_mc[mode]->Fill(cztrue, w);
+            }
+
+            if (std::isfinite(Ereco) && std::isfinite(czreco)) {
+                cat.reco2D_mc->Fill(Ereco, czreco, w);
+            }
+
+            if (std::isfinite(Etrue) && std::isfinite(cztrue)) {
+                cat.true2D_mc->Fill(Etrue, cztrue, w);
+            }
+        }
+        else {
+            if (std::isfinite(Ereco)) {
+                cat.recoE_data->Fill(Ereco, w);
+            }
+
+            if (std::isfinite(czreco)) {
+                cat.recoCos_data->Fill(czreco, w);
+            }
+
+            // Keep only if preFit/data contains truth branches.
+            if (std::isfinite(Etrue)) {
+                cat.trueE_data->Fill(Etrue, w);
+            }
+
+            if (std::isfinite(cztrue)) {
+                cat.trueCos_data->Fill(cztrue, w);
+            }
+
+            if (std::isfinite(Ereco) && std::isfinite(czreco)) {
+                cat.reco2D_data->Fill(Ereco, czreco, w);
+            }
+        }
+    }
+
     void fillFromBaseDir(TDirectory* baseDir,
                          Category& numuSel_CC,
                          Category& nueSel_CC,
                          Category& numuSel_NC,
                          Category& nueSel_NC,
+                         Category& numuSel_All,
+                         Category& nueSel_All,
                          bool isData)
     {
         if (!baseDir) return;
@@ -499,139 +595,81 @@ namespace {
                     cztrue = static_cast<double>(leafCosZTruth->GetValue(0));
                 }
 
-                Category* cat = nullptr;
+                Category* catCCNC = nullptr;
+                Category* catAll  = nullptr;
 
                 double Ereco  = NAN;
                 double czreco = NAN;
 
-                if (isNuMu && isCC == 1) {
-                    cat = &numuSel_CC;
-
-                    if (leafEnuRecoMu) {
-                        Ereco = static_cast<double>(leafEnuRecoMu->GetValue(0));
-                    }
-
-                    if (leafCosZRecoMu) {
-                        czreco = static_cast<double>(leafCosZRecoMu->GetValue(0));
-                    }
-                }
-                else if (isNuE && isCC == 1) {
-                    cat = &nueSel_CC;
-
-                    if (leafEnuRecoEle) {
-                        Ereco = static_cast<double>(leafEnuRecoEle->GetValue(0));
-                    }
-
-                    if (leafCosZRecoEle) {
-                        czreco = static_cast<double>(leafCosZRecoEle->GetValue(0));
-                    }
-                }
-                else if (isNuMu && isCC == 0) {
-                    cat = &numuSel_NC;
-
-                    if (leafEnuRecoMu) {
-                        Ereco = static_cast<double>(leafEnuRecoMu->GetValue(0));
-                    }
-
-                    if (leafCosZRecoMu) {
-                        czreco = static_cast<double>(leafCosZRecoMu->GetValue(0));
-                    }
-                }
-                else if (isNuE && isCC == 0) {
-                    cat = &nueSel_NC;
-
-                    if (leafEnuRecoEle) {
-                        Ereco = static_cast<double>(leafEnuRecoEle->GetValue(0));
-                    }
-
-                    if (leafCosZRecoEle) {
-                        czreco = static_cast<double>(leafCosZRecoEle->GetValue(0));
-                    }
-                }
-
-                if (!cat) continue;
-
                 // -----------------------------------------------------
-                // Inclusive event-rate counters
-                // -----------------------------------------------------
-                if (!isData) {
-                    cat->rate_mc += w;
-                    cat->n_mc    += 1;
-                } else {
-                    cat->rate_data += w;
-                    cat->n_data    += 1;
-                }
-
-                // -----------------------------------------------------
-                // Per-mode event-rate counters
+                // Select the reconstructed variables and categories.
                 //
-                // For data/Asimov, this will work only if mcMode exists.
-                // If the data tree has no mcMode leaf, inclusive data rates
-                // are still printed, but data per-mode rates will remain zero.
+                // catAll receives both CC and NC events.
+                // catCCNC preserves the original CC/NC-separated output.
                 // -----------------------------------------------------
-                if (mode >= 0 && mode < NMODES) {
-                    if (!isData) {
-                        cat->rate_mc_mode[mode] += w;
-                        cat->n_mc_mode[mode]    += 1;
-                    } else {
-                        cat->rate_data_mode[mode] += w;
-                        cat->n_data_mode[mode]    += 1;
+                if (isNuMu) {
+                    catAll = &numuSel_All;
+
+                    if (leafEnuRecoMu) {
+                        Ereco = static_cast<double>(leafEnuRecoMu->GetValue(0));
+                    }
+
+                    if (leafCosZRecoMu) {
+                        czreco = static_cast<double>(leafCosZRecoMu->GetValue(0));
+                    }
+
+                    if (isCC == 1) {
+                        catCCNC = &numuSel_CC;
+                    }
+                    else if (isCC == 0) {
+                        catCCNC = &numuSel_NC;
+                    }
+                }
+                else if (isNuE) {
+                    catAll = &nueSel_All;
+
+                    if (leafEnuRecoEle) {
+                        Ereco = static_cast<double>(leafEnuRecoEle->GetValue(0));
+                    }
+
+                    if (leafCosZRecoEle) {
+                        czreco = static_cast<double>(leafCosZRecoEle->GetValue(0));
+                    }
+
+                    if (isCC == 1) {
+                        catCCNC = &nueSel_CC;
+                    }
+                    else if (isCC == 0) {
+                        catCCNC = &nueSel_NC;
                     }
                 }
 
-                // -----------------------------------------------------
-                // Fill histograms
-                // -----------------------------------------------------
-                if (!isData) {
-                    if (mode < 0 || mode >= NMODES) {
-                        continue;
-                    }
+                if (!catAll) continue;
 
-                    if (std::isfinite(Ereco)) {
-                        cat->recoE_mc[mode]->Fill(Ereco, w);
-                    }
+                // Fill inclusive CC+NC category.
+                fillOneCategory(
+                    *catAll,
+                    isData,
+                    mode,
+                    w,
+                    Ereco,
+                    czreco,
+                    Etrue,
+                    cztrue
+                );
 
-                    if (std::isfinite(czreco)) {
-                        cat->recoCos_mc[mode]->Fill(czreco, w);
-                    }
-
-                    if (std::isfinite(Etrue)) {
-                        cat->trueE_mc[mode]->Fill(Etrue, w);
-                    }
-
-                    if (std::isfinite(cztrue)) {
-                        cat->trueCos_mc[mode]->Fill(cztrue, w);
-                    }
-
-                    if (std::isfinite(Ereco) && std::isfinite(czreco)) {
-                        cat->reco2D_mc->Fill(Ereco, czreco, w);
-                    }
-
-                    if (std::isfinite(Etrue) && std::isfinite(cztrue)) {
-                        cat->true2D_mc->Fill(Etrue, cztrue, w);
-                    }
-                }
-                else {
-                    if (std::isfinite(Ereco)) {
-                        cat->recoE_data->Fill(Ereco, w);
-                    }
-
-                    if (std::isfinite(czreco)) {
-                        cat->recoCos_data->Fill(czreco, w);
-                    }
-
-                    // Keep only if preFit/data contains truth branches.
-                    if (std::isfinite(Etrue)) {
-                        cat->trueE_data->Fill(Etrue, w);
-                    }
-
-                    if (std::isfinite(cztrue)) {
-                        cat->trueCos_data->Fill(cztrue, w);
-                    }
-
-                    if (std::isfinite(Ereco) && std::isfinite(czreco)) {
-                        cat->reco2D_data->Fill(Ereco, czreco, w);
-                    }
+                // Fill original CC/NC-separated category.
+                if (catCCNC) {
+                    fillOneCategory(
+                        *catCCNC,
+                        isData,
+                        mode,
+                        w,
+                        Ereco,
+                        czreco,
+                        Etrue,
+                        cztrue
+                    );
                 }
             }
         }
@@ -785,7 +823,9 @@ namespace {
     void printEventRates(const Category& numuSel_CC,
                          const Category& nueSel_CC,
                          const Category& numuSel_NC,
-                         const Category& nueSel_NC)
+                         const Category& nueSel_NC,
+                         const Category& numuSel_All,
+                         const Category& nueSel_All)
     {
         auto printOne = [](const Category& c) {
             std::cout << std::fixed << std::setprecision(6)
@@ -820,6 +860,8 @@ namespace {
         printOne(nueSel_CC);
         printOne(numuSel_NC);
         printOne(nueSel_NC);
+        printOne(numuSel_All);
+        printOne(nueSel_All);
 
         std::cout << "\n============================================================\n";
         std::cout << "Summary event rates\n";
@@ -827,11 +869,17 @@ namespace {
 
         std::cout << std::fixed << std::setprecision(6);
 
-        std::cout << "  numu selection total : model = " << numuSel_model
+        std::cout << "  numu selection total from CC+NC categories : model = " << numuSel_model
                   << " , data = " << numuSel_data << "\n";
 
-        std::cout << "  nue  selection total : model = " << nueSel_model
+        std::cout << "  numu selection total from inclusive category: model = " << numuSel_All.rate_mc
+                  << " , data = " << numuSel_All.rate_data << "\n";
+
+        std::cout << "  nue  selection total from CC+NC categories : model = " << nueSel_model
                   << " , data = " << nueSel_data << "\n";
+
+        std::cout << "  nue  selection total from inclusive category: model = " << nueSel_All.rate_mc
+                  << " , data = " << nueSel_All.rate_data << "\n";
 
         std::cout << "  NC total             : model = " << nc_model
                   << " , data = " << nc_data << "\n";
@@ -850,6 +898,8 @@ namespace {
         printEventRatesPerMode(nueSel_CC);
         printEventRatesPerMode(numuSel_NC);
         printEventRatesPerMode(nueSel_NC);
+        printEventRatesPerMode(numuSel_All);
+        printEventRatesPerMode(nueSel_All);
 
         std::cout << "\n============================================================\n\n";
     }
@@ -938,6 +988,10 @@ void getERPlots()
     Category numuSel_NC;
     Category nueSel_NC;
 
+    // New inclusive CC+NC categories.
+    Category numuSel_All;
+    Category nueSel_All;
+
     initCategory(
         numuSel_CC,
         "modeStacks_numuSel_CC",
@@ -966,12 +1020,28 @@ void getERPlots()
         SelectionType::NuE
     );
 
+    initCategory(
+        numuSel_All,
+        "modeStacks_numuSel_All",
+        "#nu_{#mu} selection, CC+NC",
+        SelectionType::NuMu
+    );
+
+    initCategory(
+        nueSel_All,
+        "modeStacks_nueSel_All",
+        "#nu_{e} selection, CC+NC",
+        SelectionType::NuE
+    );
+
     fillFromBaseDir(
         modelDir,
         numuSel_CC,
         nueSel_CC,
         numuSel_NC,
         nueSel_NC,
+        numuSel_All,
+        nueSel_All,
         false
     );
 
@@ -981,6 +1051,8 @@ void getERPlots()
         nueSel_CC,
         numuSel_NC,
         nueSel_NC,
+        numuSel_All,
+        nueSel_All,
         true
     );
 
@@ -988,13 +1060,20 @@ void getERPlots()
         numuSel_CC,
         nueSel_CC,
         numuSel_NC,
-        nueSel_NC
+        nueSel_NC,
+        numuSel_All,
+        nueSel_All
     );
 
+    // Original CC/NC-separated outputs.
     printCategoryPDF(numuSel_CC);
     printCategoryPDF(nueSel_CC);
     printCategoryPDF(numuSel_NC);
     printCategoryPDF(nueSel_NC);
+
+    // New inclusive CC+NC outputs.
+    printCategoryPDF(numuSel_All);
+    printCategoryPDF(nueSel_All);
 
     f->Close();
 }
